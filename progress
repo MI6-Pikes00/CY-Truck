@@ -1,0 +1,7 @@
+Avancée du projet : 
+
+- 11.12.2023 : 
+-> Ajout de la fonction de traitement D1 => 10 conducteurs avec le plus de trajets.
+(Premier essaie > 20 sec. avec la commande "cut -d ';' -f 1 data.csv | sort | uniq -c | sort -rn | head -n 10")
+(Commande actuelle (< 8 sec.): " awk -F';' '$2 == 1 {count[$6]++} END {for (name in count) print count[name], name}' $fichier_csv | sort -nr | head -n 10 > ./temp/conducteur.txt "
+-> Ajout de la fonction 
