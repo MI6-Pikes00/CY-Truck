@@ -35,8 +35,10 @@ while [ "$#" -gt 0 ]; do
                 exit 1
             fi
 
-            awk -F';' '$2 == 1 {count[$6]+=1} END {for (name in count) print count[name], name}' "$fichier_csv" | sort -nr | head -n 10 > "./temp/top_conducteurs.txt"
-            echo "Traitement des conducteurs avec le plus de trajets terminé. Résultats stockés dans ./temp/top_conducteurs.txt"
+            awk -F';' '$2 == 1 {count[$6]+=1} END {for (name in count) print count[name], name}' "$fichier_csv" | sort -nr | head -n 10 > "./temp/top_conducteurs.csv"
+            echo "Traitement des conducteurs avec le plus de trajets terminé. Résultats stockés dans ./temp/top_conducteurs.csv"
+
+
             ;;
         "-d2")
             echo "Traitement des conducteurs et la plus grande distance en cours..."
@@ -45,8 +47,8 @@ while [ "$#" -gt 0 ]; do
                 exit 1
             fi
 
-            awk -F';' 'NR>1 {distance[$6] += $5} END {for (name in distance) printf "%s;%d\n", name, distance[name]}' "$fichier_csv" | sort -t';' -k2,2nr | head -n 10 > "./temp/top_distances_conducteurs.txt"
-            echo "Traitement des conducteurs et la plus grande distance terminé. Résultats stockés dans ./temp/top_distances_conducteurs.txt"
+            awk -F';' 'NR>1 {distance[$6] += $5} END {for (name in distance) printf "%s;%d\n", name, distance[name]}' "$fichier_csv" | sort -t';' -k2,2nr | head -n 10 > "./temp/top_distances_conducteurs.csv"
+            echo "Traitement des conducteurs et la plus grande distance terminé. Résultats stockés dans ./temp/top_distances_conducteurs.csv"
             ;;
         "-l")
             echo "Traitement des 10 trajets les plus longs en cours..."
@@ -55,8 +57,10 @@ while [ "$#" -gt 0 ]; do
                 exit 1
             fi
 
-            awk -F';' 'NR>1 {distance[$1] += $5} END {for (name in distance) printf "%s;%d\n", name, distance[name]}' "$fichier_csv" | sort -t';' -k2,2nr | head -n 10 > "./temp/trajets_long.txt"
-            echo "Traitement des 10 trajets les plus longs terminé. Résultats stockés dans ./temp/trajets_long.txt"
+            awk -F';' 'NR>1 {distance[$1] += $5} END {for (name in distance) printf "%s;%d\n", name, distance[name]}' "$fichier_csv" | sort -t';' -k2,2nr | head -n 10 > "./temp/trajets_long.csv"
+            echo "Traitement des 10 trajets les plus longs terminé. Résultats stockés dans ./temp/trajets_long.csv"
+            
+
             ;;
         *)
             echo "Option non reconnue ou manquante: $1. Utilisez -d1, -d2 ou -l pour effectuer les traitements spécifiques. Utilisez -h pour l'aide."
