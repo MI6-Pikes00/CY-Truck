@@ -37,7 +37,7 @@ while [ "$#" -gt 0 ]; do
                 exit 1
             fi
 
-            awk -F';' '$2 == 1 {count[$6]+=1} END {for (name in count) print count[name], name}' "$fichier_csv" | sort -nr | head -n 10 > "./temp/top_conducteurs.csv"
+            awk -F';' '$2 == 1 {count[$6]+=1} END {for (name in count) printf "%d;%s\n", count[name], name}' "$fichier_csv" | sort -nr | head -n 10 > "./temp/top_conducteurs.csv"
             echo "Traitement des conducteurs avec le plus de trajets terminé. Résultats stockés dans ./temp/top_conducteurs.csv"
             echo "Création du graphique en cours ..."
             gnuplot gnuplot-script/d1.gnu
