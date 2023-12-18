@@ -10,6 +10,6 @@ set xtics nomirror
 set grid y
 set boxwidth 0.5
 set terminal pngcairo size 800,600 enhanced font 'Arial,12'
-set output 'top_conducteurs.png'
-plot "../temp/top_conducteurs.csv" using 1:xticlabels(2) with boxes lc rgb "skyblue" title "", \
+set output './graph_output/top_conducteurs.png'
+plot "./temp/top_conducteurs.csv" using 1:xticlabels(2) with boxes lc rgb "skyblue" title "", \
      '' using ($1):($0):($1) with labels offset char 0,1 notitle
