@@ -52,6 +52,9 @@ while [ "$#" -gt 0 ]; do
 
             awk -F';' 'NR>1 {distance[$6] += $5} END {for (name in distance) printf "%s;%d\n", name, distance[name]}' "$fichier_csv" | sort -t';' -k2,2nr | head -n 10 > "./temp/top_distances_conducteurs.csv"
             echo "Traitement des conducteurs et la plus grande distance terminé. Résultats stockés dans ./temp/top_distances_conducteurs.csv"
+            echo "Création du graphique en cours ..."
+            gnuplot gnuplot-script/d2.gnu
+            echo "Création du graphique terminé"
             ;;
         "-l")
             echo "Traitement des 10 trajets les plus longs en cours..."
@@ -62,6 +65,9 @@ while [ "$#" -gt 0 ]; do
 
             awk -F';' 'NR>1 {distance[$1] += $5} END {for (name in distance) printf "%s;%d\n", name, distance[name]}' "$fichier_csv" | sort -t';' -k2,2nr | head -n 10 > "./temp/trajets_long.csv"
             echo "Traitement des 10 trajets les plus longs terminé. Résultats stockés dans ./temp/trajets_long.csv"
+            echo "Création du graphique en cours ..."
+            gnuplot gnuplot-script/l.gnu
+            echo "Création du graphique terminé"
             
 
             ;;
