@@ -25,7 +25,7 @@ while [ "$#" -gt 0 ]; do
     case "$1" in
         "-d1")
             ## On récupère le timestamp actuel au lancement du script
-            debut=$(date +%s)
+            debut=$(date +%s.%3N)
             echo "Traitement des conducteurs avec le plus de trajets en cours..."
             if [ ! -f "$fichier_csv" ]; then
                 echo "Le fichier $fichier_csv n'existe pas."
@@ -38,7 +38,7 @@ while [ "$#" -gt 0 ]; do
             gnuplot gnuplot-script/d1.gnu
             echo "Création du graphique terminé"
             ## On récupère le timestamp actuel à la fin du script
-            fin=$(date +%s)
+            fin=$(date +%s.%3N)
             ## On calcule la durée d'exécution
             duree=$(( $fin - $debut ))
             ## On affiche le résultat            
