@@ -29,6 +29,7 @@ shift # Passer au prochain argument
 while [ "$#" -gt 0 ]; do
     case "$1" in
         "-d1")
+            $SECONDS=0
             echo "Traitement des conducteurs avec le plus de trajets en cours..."
             if [ ! -f "$fichier_csv" ]; then
                 echo "Le fichier $fichier_csv n'existe pas."
@@ -40,7 +41,7 @@ while [ "$#" -gt 0 ]; do
             echo "Création du graphique en cours ..."
             gnuplot gnuplot-script/d1.gnu
             echo "Création du graphique terminé"
-
+            echo "Temps d'éxecution: $SECONDS"
 
             ;;
         "-d2")
