@@ -1,16 +1,5 @@
 #!/bin/bash
 
-# Fonction pour afficher l'aide
-show_help() {
-    echo "Usage: $0 [-h] fichier_csv [options]"
-    echo "Options:"
-    echo "  -h, --help  Afficher cette aide."
-    echo "  -d1         Conducteurs avec le plus de trajets."
-    echo "  -d2         Conducteurs et la plus grande distance."
-    echo "  -l          Les 10 trajets les plus longs."
-    exit 0
-}
-
 # Vérifier s'il y a au moins un argument
 if [ "$#" -lt 1 ]; then
     echo "Usage: $0 [-h] fichier_csv [options]"
@@ -19,7 +8,13 @@ fi
 
 # Vérification de l'option d'aide
 if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
-    show_help
+    echo "Usage: $0 [-h] fichier_csv [options]"
+    echo "Options:"
+    echo "  -h, --help  Afficher cette aide."
+    echo "  -d1         Conducteurs avec le plus de trajets."
+    echo "  -d2         Conducteurs et la plus grande distance."
+    echo "  -l          Les 10 trajets les plus longs."
+    exit 0
 fi
 
 fichier_csv="$1"
