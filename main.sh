@@ -29,6 +29,8 @@ shift # Passer au prochain argument
 while [ "$#" -gt 0 ]; do
     case "$1" in
         "-d1")
+            ## On récupère le timestamp actuel au lancement du script
+            debut=$(date +%s)
             echo "Traitement des conducteurs avec le plus de trajets en cours..."
             if [ ! -f "$fichier_csv" ]; then
                 echo "Le fichier $fichier_csv n'existe pas."
@@ -40,9 +42,14 @@ while [ "$#" -gt 0 ]; do
             echo "Création du graphique en cours ..."
             gnuplot gnuplot-script/d1.gnu
             echo "Création du graphique terminé"
-            echo "Temps d'éxecution: $SECONDS"  
+            ## On récupère le timestamp actuel à la fin du script
+            fin=$(date +%s)
+            ## On calcule la durée d'exécution
+            duree=$(( $fin - $debut ))
+            ## On affiche le résultat            
+            echo "Temps d'éxecution: $duree secondes"
 
-            ;;
+            ;; 
         "-d2")
             echo "Traitement des conducteurs et la plus grande distance en cours..."
             if [ ! -f "$fichier_csv" ]; then
