@@ -43,6 +43,7 @@ while [ "$#" -gt 0 ]; do
             duree=$(( $fin - $debut ))
             ## On affiche le résultat            
             echo "Temps d'éxecution: $duree secondes"
+            open ./graph_output/top_conducteurs.png
 
             ;; 
         "-d2")
@@ -61,6 +62,7 @@ while [ "$#" -gt 0 ]; do
             fin=$(date +%s)
             duree=$(( $fin - $debut ))    
             echo "Temps d'éxecution: $duree secondes"
+            open ./graph_output/top_distances_conducteurs.png
             ;;
         "-l")
             echo "Traitement des 10 trajets les plus longs en cours..."
@@ -74,7 +76,7 @@ while [ "$#" -gt 0 ]; do
             echo "Création du graphique en cours ..."
             gnuplot gnuplot-script/l.gnu
             echo "Création du graphique terminé"
-            
+            open ./graph_output/top_trajets.png
 
             ;;
         *)
