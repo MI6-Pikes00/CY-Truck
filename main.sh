@@ -69,7 +69,7 @@ while [ "$#" -gt 0 ]; do
                 exit 1
             fi
 
-            awk -F';' 'NR>1 {distance[$1] += $5} END {for (name in distance) printf "%s;%d\n", name, distance[name]}' "$fichier_csv" | sort -t';' -k2,2nr | head -n 10 > "./temp/trajets_long.csv"
+            awk -F';' 'NR>1 {distance[$1] += $5} END {for (name in distance) printf "%s;%d\n", name, distance[name]}' "$fichier_csv" | sort -t';' -k2,2nr | head -n 10 | sort -n > "./temp/trajets_long.csv"
             echo "Traitement des 10 trajets les plus longs terminé. Résultats stockés dans ./temp/trajets_long.csv"
             echo "Création du graphique en cours ..."
             gnuplot gnuplot-script/l.gnu
