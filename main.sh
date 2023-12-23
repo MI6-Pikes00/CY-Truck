@@ -43,7 +43,7 @@ while [ "$#" -gt 0 ]; do
             duree=$(( $fin - $debut ))
             ## On affiche le résultat            
             echo "Temps d'éxecution: $duree secondes"
-            open ./graph_output/top_conducteurs.png
+            #open ./graph_output/top_conducteurs.png
 
             ;; 
         "-d2")
@@ -54,7 +54,7 @@ while [ "$#" -gt 0 ]; do
                 exit 1
             fi
 
-            awk -F';' 'NR>1 {distance[$6] += $5} END {for (name in distance) printf "%s;%d\n", name, distance[name]}' "$fichier_csv" | sort -t';' -k2,2nr | head -n 10 > "./temp/top_distances_conducteurs.csv"
+            awk -F';' 'NR>1 {distance[$6] += $5} END {for (name in distance) printf "%d;%s\n", distance[name], name}' "$fichier_csv" | sort -t';' -nr | head -n 10 > "./temp/top_distances_conducteurs.csv"
             echo "Traitement des conducteurs et la plus grande distance terminé. Résultats stockés dans ./temp/top_distances_conducteurs.csv"
             echo "Création du graphique en cours ..."
             gnuplot gnuplot-script/d2.gnu
@@ -62,7 +62,7 @@ while [ "$#" -gt 0 ]; do
             fin=$(date +%s)
             duree=$(( $fin - $debut ))    
             echo "Temps d'éxecution: $duree secondes"
-            open ./graph_output/top_distances_conducteurs.png
+            #open ./graph_output/top_distances_conducteurs.png
             ;;
         "-l")
             echo "Traitement des 10 trajets les plus longs en cours..."
