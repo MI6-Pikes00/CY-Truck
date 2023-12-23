@@ -1,7 +1,7 @@
 # Projet-preing-2 :  CY_Truck
 
 
-##Planning
+## Planning
 
 - *5.12.2023*: 
   - Lecture du projet 
