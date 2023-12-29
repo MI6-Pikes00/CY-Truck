@@ -57,13 +57,22 @@ Les données sont triées en fonction de la différence entre la distance maxima
 Pour exécuter le script, ouvrez un terminal et exécutez la commande suivante :
 
 ```bash
+<<<<<<< Updated upstream
 ./script.sh [-h] fichier_csv [options]
+=======
+./main.sh [-h] fichier_csv [options]
+>>>>>>> Stashed changes
 ```
 
 **Exemples:**
 ```bash
+<<<<<<< Updated upstream
 ./CYTruck.sh -h # Montre l'aide
 ./CYTruck.sh ./data/data.csv -d1 -d2 # Execute les traitements d1 et d2
+=======
+./main.sh -h # Montre l'aide
+./main.sh ./data/data.csv -d1 -d2 # Execute les traitements d1 et d2
+>>>>>>> Stashed changes
 ```
 
 
