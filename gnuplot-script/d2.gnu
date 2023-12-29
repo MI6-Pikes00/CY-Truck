@@ -1,6 +1,6 @@
 # Configuration du terminal de sortie et de la taille du graphique
 set terminal pngcairo size 1920,1080 enhanced font 'Arial,12'
-set output './graph_output/top_distances_conducteurs.png'
+set output './images/top_distances_conducteurs.png'
 
 # Séparateur de champs pour un fichier CSV
 set datafile separator ';'

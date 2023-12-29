@@ -1,6 +1,6 @@
 # Terminal de sortie pour l'image PNG
 set terminal pngcairo size 1920,1080 enhanced font 'Arial,12'
-set output './graph_output/top_conducteurs.png'
+set output './images/top_conducteurs.png'
 
 # Format du fichier de données
 set datafile separator ';'
