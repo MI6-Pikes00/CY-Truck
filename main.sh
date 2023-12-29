@@ -41,6 +41,9 @@ if [ "$#" -lt 1 ]; then
     exit 1
 fi
 
+# Récupération du fichier à analyser
+fichier_csv="$1"
+
 # Vérification de l'option d'aide
 if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
     echo "Usage: $0 [-h] fichier_csv [options]"
@@ -49,17 +52,15 @@ if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
     echo "  -d1         Conducteurs avec le plus de trajets."
     echo "  -d2         Conducteurs et la plus grande distance."
     echo "  -l          Les 10 trajets les plus longs."
+    echo "  -t          Les 10 villes les plus traversées."
+    echo "  -s          Statistiques sur les étapes."
     exit 0
+
 fi
-
-# Récupération du fichier à analyser
-fichier_csv="$1"
-
-shift # Passer au prochain argument
 
 # Parcourir tous les arguments restants
 while [ "$#" -gt 0 ]; do
-    case "$1" in
+    case "$2" in
 
         "-d1")
             echo "Traitement des conducteurs avec le plus de trajets en cours..."
@@ -85,7 +86,7 @@ while [ "$#" -gt 0 ]; do
             ## On affiche le résultat            
             echo "Temps d'éxecution: $duree secondes"
             ## Ouverture du graphique 
-            open ./graph_output/top_conducteurs.png
+            open ./images/top_conducteurs.png
             ;;
 
         "-d2")
@@ -110,7 +111,7 @@ while [ "$#" -gt 0 ]; do
             ## On affiche le résultat
             echo "Temps d'éxecution: $duree secondes"
             ## Ouverture du graphique
-            open ./graph_output/top_distances_conducteurs.png
+            open ./images/top_distances_conducteurs.png
             ;;
 
         "-l")
@@ -135,11 +136,11 @@ while [ "$#" -gt 0 ]; do
             ## On affiche le résultat
             echo "Temps d'éxecution: $duree secondes"
             ## Ouverture du graphique
-            open ./graph_output/top_trajets.png
+            open ./images/top_trajets.png
             ;;
 
         *)
-            echo "Option non reconnue ou manquante: $1. Utilisez -d1, -d2 ou -l pour effectuer les traitements spécifiques. Utilisez -h pour l'aide."
+            echo "Option non reconnue ou manquante: $2. Utilisez -d1, -d2 -l, -t ou -s pour effectuer les traitements spécifiques. Utilisez -h pour l'aide."
             exit 1
             ;;
     esac
