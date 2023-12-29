@@ -1,5 +1,40 @@
 #!/bin/bash
 
+# Vérifier et créer le dossier temp s'il n'existe pas
+if [ ! -d "temp" ]; then
+    mkdir temp
+else
+    # Vider le dossier temp s'il existe déjà
+    rm -rf temp/*
+fi
+
+# Vérifier et créer le dossier images s'il n'existe pas
+if [ ! -d "images" ]; then
+    mkdir images
+else
+    # Vider le dossier images s'il existe déjà
+    rm -rf images/*
+fi
+
+<< 'Comment' #Syntaxe Heredoc pour faire un commentaire multi-ligne
+# Vérification de l'existence de l'exécutable
+if [ ! -f "mon_programme" ]; then
+    echo "Le programme exécutable n'est pas présent. Lancement de la compilation..."
+
+    # Compilation du programme C
+    make
+
+    # Vérification si la compilation a réussi
+    if [ $? -ne 0 ] || [ ! -f "mon_programme" ]; then
+        echo "La compilation a échoué ou l'exécutable n'a pas été généré."
+        exit 1
+    else
+        echo "Compilation réussie."
+    fi
+fi
+Comment
+#Se finit si dessus
+
 # Vérifier s'il y a au moins un argument
 if [ "$#" -lt 1 ]; then
     echo "Usage: $0 [-h] fichier_csv [options]"
@@ -27,15 +62,15 @@ while [ "$#" -gt 0 ]; do
     case "$1" in
 
         "-d1")
-            ## On récupère le timestamp actuel au lancement du script
-            debut=$(date +%s)
             echo "Traitement des conducteurs avec le plus de trajets en cours..."
             ## Vérification de l'existance du fichier
             if [ ! -f "$fichier_csv" ]; then
                 echo "Le fichier $fichier_csv n'existe pas."
                 exit 1
             fi
-            
+            ## On récupère le timestamp actuel au lancement du script
+            debut=$(date +%s)
+
             ## Tri des données de fichier_csv avec awk
             awk -F';' '$2 == 1 {count[$6]+=1} END {for (name in count) printf "%d;%s\n", count[name], name}' "$fichier_csv" | sort -nr | head -n 10 > "./temp/top_conducteurs.csv"
             echo "Traitement des conducteurs avec le plus de trajets terminé. Résultats stockés dans ./temp/top_conducteurs.csv"
@@ -54,14 +89,14 @@ while [ "$#" -gt 0 ]; do
             ;;
 
         "-d2")
-            ## On récupère le timestamp actuel au lancement du script
-            debut=$(date +%s)
             echo "Traitement des conducteurs et la plus grande distance en cours..."
             ## Vérification de l'existance du fichier
             if [ ! -f "$fichier_csv" ]; then
                 echo "Le fichier $fichier_csv n'existe pas."
                 exit 1
             fi
+            ## On récupère le timestamp actuel au lancement du script
+            debut=$(date +%s)
             ## Tri des données de fichier_csv avec awk
             awk -F';' 'NR>1 {distance[$6] += $5} END {for (name in distance) printf "%d;%s\n", distance[name], name}' "$fichier_csv" | sort -t';' -nr | head -n 10 > "./temp/top_distances_conducteurs.csv"
             echo "Traitement des conducteurs et la plus grande distance terminé. Résultats stockés dans ./temp/top_distances_conducteurs.csv"
@@ -79,14 +114,14 @@ while [ "$#" -gt 0 ]; do
             ;;
 
         "-l")
-            ## On récupère le timestamp actuel au lancement du script
-            debut=$(date +%s)
             echo "Traitement des 10 trajets les plus longs en cours..."
             ## Vérification de l'existance du fichier
             if [ ! -f "$fichier_csv" ]; then
                 echo "Le fichier $fichier_csv n'existe pas."
                 exit 1
             fi
+            ## On récupère le timestamp actuel au lancement du script
+            debut=$(date +%s)
             ## Tri des données de fichier_csv avec awk
             awk -F';' 'NR>1 {distance[$1] += $5} END {for (name in distance) printf "%s;%d\n", name, distance[name]}' "$fichier_csv" | sort -t';' -k2,2nr | head -n 10 | sort -nr > "./temp/trajets_long.csv"
             echo "Traitement des 10 trajets les plus longs terminé. Résultats stockés dans ./temp/trajets_long.csv"
