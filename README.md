@@ -74,7 +74,7 @@ Pour exécuter le script, ouvrez un terminal et exécutez la commande suivante :
   - Création du fichier main.sh
 
 - *11.12.2023*: 
-    - Ajout de la fonction de traitement **d1** 
+    - Ajout de la fonction de traitement **d1** =>
       - Premier essaie > 20 sec. avec la commande: `cut -d ';' -f 1 data.csv | sort | uniq -c | sort -rn | head -n10`
       - Commande actuelle (inf à 8 sec.): `awk -F';' '$2 == 1 {count[$6]++} END {for (name in count) print count[name], name}' $fichier_csv | sort -nr | head -n 10 > ./temp/conducteur.txt`
   
@@ -84,9 +84,20 @@ Pour exécuter le script, ouvrez un terminal et exécutez la commande suivante :
     - Ajout de la fonction de traitement **l** => 
       - Commande (inf à 9 sec.): `awk -F';' 'NR>1 {distance[$1] += $5} END {for (name in distance) printf "%s;%d\n", name, distance[name]}' "$fichier_csv" | sort -t';' -k2,2nr | head -n 10 | sort -nr > "./temp/trajets_long.csv"`
 
-- *18.12.2023*: 
+- *18.12.2023*:
+    - Recherche pour créer les graphiques d1, d2, l. Premiere ittération non concluante
 
 - *19.12.2023*: 
-
-- *23.12.2023*: 
+    - Graphique l fonctionnel
+    - Graphique d1, d2 fonctionnel mais pas la bonne forme 
+  
+- *26.12.2023* et *28.12.2023*: 
     - Debut rédaction/mise en forme du README
+    - Ajout de commentaore dans le code
+  
+- Aucune modification :
+    - Semaine du 1/01/2024
+    - Semaine du 8/01/2024
+
+  - *19.12.2023*: 
+    - Graphique t et s fonctionnel

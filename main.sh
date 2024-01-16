@@ -59,9 +59,8 @@ if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
 fi
 
 # Parcourir tous les arguments restants
-while [ "$#" -gt 0 ]; do
+while [ "$#" -gt 1 ]; do
     case "$2" in
-
         "-d1")
             echo "Traitement des conducteurs avec le plus de trajets en cours..."
             ## Vérification de l'existance du fichier
@@ -82,7 +81,7 @@ while [ "$#" -gt 0 ]; do
             ## On récupère le timestamp actuel à la fin du script
             fin=$(date +%s)
             ## On calcule la durée d'exécution
-            duree=$(fin - debut)
+            duree=$((fin - debut))
             ## On affiche le résultat            
             echo "Temps d'éxecution: $duree secondes"
             ## Ouverture du graphique 
@@ -107,7 +106,7 @@ while [ "$#" -gt 0 ]; do
             echo "Création du graphique terminé"
             ## On récupère le timestamp actuel à la fin du script
             fin=$(date +%s)
-            duree=$(fin - debut)
+            duree=$((fin - debut))
             ## On affiche le résultat
             echo "Temps d'éxecution: $duree secondes"
             ## Ouverture du graphique
@@ -132,7 +131,7 @@ while [ "$#" -gt 0 ]; do
             echo "Création du graphique terminé"
             ## On récupère le timestamp actuel à la fin du script
             fin=$(date +%s)
-            duree=$(fin - debut)
+            duree=$((fin - debut))
             ## On affiche le résultat
             echo "Temps d'éxecution: $duree secondes"
             ## Ouverture du graphique
