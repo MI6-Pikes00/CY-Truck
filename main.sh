@@ -73,18 +73,18 @@ while [ "$#" -gt 1 ]; do
 
             ## Tri des données de fichier_csv avec awk
             awk -F';' '$2 == 1 {count[$6]+=1} END {for (name in count) printf "%d;%s\n", count[name], name}' "$fichier_csv" | sort -nr | head -n 10 > "./temp/top_conducteurs.csv"
+            ## On récupère le timestamp actuel à la fin du script
+            fin=$(date +%s)
             echo "Traitement des conducteurs avec le plus de trajets terminé. Résultats stockés dans ./temp/top_conducteurs.csv"
             ## Création du graphique 
             echo "Création du graphique en cours ..."
             gnuplot gnuplot-script/d1.gnu
             convert -rotate 90 ./images/graph_d1.png ./images/graph_d1.png
             echo "Création du graphique terminé"
-            ## On récupère le timestamp actuel à la fin du script
-            fin=$(date +%s)
             ## On calcule la durée d'exécution
             duree=$((fin - debut))
             ## On affiche le résultat            
-            echo "Temps d'éxecution: $duree secondes"
+            echo "Temps d'éxecution: $(tput bold)$duree $(tput sgr0)secondes"
             ## Ouverture du graphique 
             open ./images/graph_d1.png
             ;;
@@ -100,17 +100,18 @@ while [ "$#" -gt 1 ]; do
             debut=$(date +%s)
             ## Tri des données de fichier_csv avec awk
             awk -F';' 'NR>1 {distance[$6] += $5} END {for (name in distance) printf "%d;%s\n", distance[name], name}' "$fichier_csv" | sort -t';' -nr | head -n 10 > "./temp/top_distances_conducteurs.csv"
+            ## On récupère le timestamp actuel à la fin du script
+            fin=$(date +%s)
             echo "Traitement des conducteurs et la plus grande distance terminé. Résultats stockés dans ./temp/top_distances_conducteurs.csv"
             ## Création du graphique 
             echo "Création du graphique en cours ..."
             gnuplot gnuplot-script/d2.gnu
             convert -rotate 90 ./images/graph_d2.png ./images/graph_d2.png
             echo "Création du graphique terminé"
-            ## On récupère le timestamp actuel à la fin du script
-            fin=$(date +%s)
+            ## On calcule la durée d'exécution
             duree=$((fin - debut))
             ## On affiche le résultat
-            echo "Temps d'éxecution: $duree secondes"
+            echo "Temps d'éxecution: $(tput bold)$duree $(tput sgr0)secondes"
             ## Ouverture du graphique
             open ./images/graph_d2.png
             ;;
@@ -125,19 +126,20 @@ while [ "$#" -gt 1 ]; do
             ## On récupère le timestamp actuel au lancement du script
             debut=$(date +%s)
             ## Tri des données de fichier_csv avec awk
-            awk -F';' 'NR>1 {distance[$1] += $5} END {for (name in distance) printf "%s;%d\n", name, distance[name]}' "$fichier_csv" | sort -t';' -k2,2nr | head -n 10 | sort -nr > "./temp/trajets_long.csv"
+            awk -F';' 'NR>1 {distance[$1] += $5} END {for (name in distance) printf "%s;%d\n", name, distance[name]}' "$fichier_csv" | sort -t';' -k2 -nr | head -n 10 | sort -nr > "./temp/trajets_long.csv"
+            ## On récupère le timestamp actuel à la fin du script
+            fin=$(date +%s)
             echo "Traitement des 10 trajets les plus longs terminé. Résultats stockés dans ./temp/trajets_long.csv"
             ## Création du graphique 
             echo "Création du graphique en cours ..."
             gnuplot gnuplot-script/l.gnu
             echo "Création du graphique terminé"
-            ## On récupère le timestamp actuel à la fin du script
-            fin=$(date +%s)
+            ## On calcule la durée d'exécution
             duree=$((fin - debut))
             ## On affiche le résultat
-            echo "Temps d'éxecution: $duree secondes"
+            echo "Temps d'éxecution: $(tput bold)$duree $(tput sgr0)secondes"
             ## Ouverture du graphique
-            open ./images/top_trajets.png
+            open ./images/graph_l.png
             ;;
 
         *)
