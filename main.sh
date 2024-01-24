@@ -77,6 +77,7 @@ while [ "$#" -gt 1 ]; do
             ## Création du graphique 
             echo "Création du graphique en cours ..."
             gnuplot gnuplot-script/d1.gnu
+            convert -rotate 90 ./images/graph_d1.png ./images/graph_d1.png
             echo "Création du graphique terminé"
             ## On récupère le timestamp actuel à la fin du script
             fin=$(date +%s)
@@ -85,7 +86,7 @@ while [ "$#" -gt 1 ]; do
             ## On affiche le résultat            
             echo "Temps d'éxecution: $duree secondes"
             ## Ouverture du graphique 
-            open ./images/top_conducteurs.png
+            open ./images/graph_d1.png
             ;;
 
         "-d2")
@@ -103,6 +104,7 @@ while [ "$#" -gt 1 ]; do
             ## Création du graphique 
             echo "Création du graphique en cours ..."
             gnuplot gnuplot-script/d2.gnu
+            convert -rotate 90 ./images/graph_d2.png ./images/graph_d2.png
             echo "Création du graphique terminé"
             ## On récupère le timestamp actuel à la fin du script
             fin=$(date +%s)
@@ -110,7 +112,7 @@ while [ "$#" -gt 1 ]; do
             ## On affiche le résultat
             echo "Temps d'éxecution: $duree secondes"
             ## Ouverture du graphique
-            open ./images/top_distances_conducteurs.png
+            open ./images/graph_d2.png
             ;;
 
         "-l")

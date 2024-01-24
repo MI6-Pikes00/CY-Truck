@@ -1,35 +1,29 @@
 # Configuration du terminal de sortie et de la taille du graphique
-set terminal pngcairo size 1920,1080 enhanced font 'Arial,12'
+set terminal pngcairo size 1080,1920 enhanced font 'Arial,12'
 set output './images/graph_d2.png'
 
 # Séparateur de champs pour un fichier CSV
 set datafile separator ';'
 
 # Titre du graphique
-set title "Top 10 des conducteurs avec le plus de km parcourus"
+set ylabel "Top 10 des conducteurs avec le plus de km parcourus"
 
-# Configuration des axes x et y
+# Axe x (conducteurs)
 set xlabel "Conducteurs"
-set ylabel "Nombre de km"
+set xtics right rotate by 90 nomirror
+
+# Axe y2 (nombre de kilomètres)
+set y2label "Nombre de kilomètres"
+set y2range [110000:*]
+set y2tics center rotate by 90
+set tics out
+set grid y2
 
 # Style des données en histogrammes
 set style data histograms
 set style fill solid border -1
+set boxwidth 0.5
+set tmargin 2.5
 
-# Plages des axes x et y
-set yrange [*:*]
-set xrange [*:*]
-
-# Configuration des ticmarks
-set ytics nomirror 
-set xtics nomirror
-set xtics rotate by -45
-
-# Configuration des lignes de grille
-set grid y
-
-# Largeur des barres
-set boxwidth 0.5 relativ
-
-# Tracé du graphique avec les données du fichier "top_distances_conducteurs.csv"
-plot "./temp/top_distances_conducteurs.csv" using (2*$0+1):1:xticlabels(2) with boxes lc rgb "skyblue" notitle
+# Tracé du graphique
+plot "./temp/top_distances_conducteurs.csv" using (2*$0+1):1:xticlabels(2) with boxes lc rgb "skyblue" axis x1y2 notitle
