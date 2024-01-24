@@ -17,7 +17,7 @@ set y2label "Nombre de trajets"
 set y2range [100:*]
 set y2tics center rotate by 90
 set tics out
-set grid y
+set grid y2
 
 # Style des données en histogrammes
 set style data histograms
