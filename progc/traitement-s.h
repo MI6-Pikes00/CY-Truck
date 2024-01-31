@@ -10,7 +10,7 @@ float minS(float a, float b);
 struct Trajet *rotationGaucheS(struct Trajet *noeud);
 struct Trajet *rotationDroitS(struct Trajet *noeud);
 struct Trajet *insererNoeudS(struct Trajet *noeud, int routeId, float distance);
-void libererArbreTrajetsS(struct Trajet *racine);
+void libererArbreTrajetS(struct Trajet *racine);
 void ajoutTop50S(struct Top50 *top50, struct Trajet *noeud);
 int compareS(const void *a, const void *b);
 void triTop50S(struct Top50 *top50);
