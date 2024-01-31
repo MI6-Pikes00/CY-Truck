@@ -23,7 +23,7 @@ set ylabel "Distances en km"
 set datafile separator ";"
 
 # Tracé des courbes pour les distances min, moyenne et max par trajet
-plot 'adefinir' using 3:xticlabels(2) with lines lc "blue" title 'dMin', \
+plot './temp/tempS.csv' using 3:xticlabels(2) with lines lc "blue" title 'dMin', \
      '' using 4:xticlabels(2) with lines lc "black" title 'dMoy', \
      '' using 5:xticlabels(2) with lines lc "blue" title 'dMax', \
      '' using 1:3:5 with filledcurves lc "skyblue" fs transparent solid 0.5 notitle
