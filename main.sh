@@ -16,24 +16,25 @@ else
     rm -rf images/*
 fi
 
-<< 'Comment' #Syntaxe Heredoc pour faire un commentaire multi-ligne
 # Vérification de l'existence de l'exécutable
-if [ ! -f "mon_programme" ]; then
+if [ ! -f "option" ]; then
     echo "Le programme exécutable n'est pas présent. Lancement de la compilation..."
 
     # Compilation du programme C
     make
 
     # Vérification si la compilation a réussi
-    if [ $? -ne 0 ] || [ ! -f "mon_programme" ]; then
+    if [ $? -ne 0 ] || [ ! -f "option" ]; then
         echo "La compilation a échoué ou l'exécutable n'a pas été généré."
         exit 1
     else
         echo "Compilation réussie."
     fi
+else
+    #Reset si l'executable existe déja
+    make
 fi
-Comment
-#Se finit si dessus
+
 
 # Vérifier s'il y a au moins un argument
 if [ "$#" -lt 1 ]; then
@@ -142,6 +143,18 @@ while [ "$#" -gt 1 ]; do
             open ./images/graph_l.png
             ;;
 
+        "-t")
+            echo "En cours de dévellopement"
+            ;;
+        "-s")
+            echo "Traitement des statistiques sur les étapes en cours..."
+            ## Tri des données de fichier_csv avec un programme C
+            ./option "$fichier_csv" 2
+            echo "Traitement des statistiques sur les étapes terminé. Résultats stockés dans ./temp/tempS.csv"
+             echo "Création du graphique en cours ..."
+            gnuplot gnuplot-script/s.gnu
+            echo "Création du graphique terminé"
+            ;;
         *)
             echo "Option non reconnue ou manquante: $2. Utilisez -d1, -d2 -l, -t ou -s pour effectuer les traitements spécifiques. Utilisez -h pour l'aide."
             exit 1
