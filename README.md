@@ -12,7 +12,21 @@ Assurez-vous que votre environnement exécute Bash et dispose des outils nécess
 - Pour gnuplot: https://doc.ubuntu-fr.org/gnuplot
 - Pour awk: présente par defaut sous Unix
 
-### Option :
+### Exécution du script :
+
+Pour exécuter le script, ouvrez un terminal et assurez-vous que votre fichier à analyser est placé dans le dossier **`data`** situé dans le répertoire du code. Assurez-vous également que votre répertoire racine est bien dans le dossier **`projet-preing-2`,** puis exécutez la commande suivante :
+
+```bash
+./main.sh [-h] fichier_csv [options]
+```
+
+**Exemples:**
+```bash
+./main.sh -h # Montre l'aide
+./main.sh ./data/data.csv -d1 -d2 # Execute les traitements d1 et d2
+```
+
+### Option du script :
   Le script Shell offre plusieurs options pour traiter et analyser les données des fichiers CSV de trajets de conducteurs. Voici un résumé des options disponibles :
 
 #### [D1] : Conducteurs avec le Plus de Trajets
@@ -52,21 +66,6 @@ Le résultat final est un histogramme regroupé. Les noms des villes sont affich
 - Description : Ce traitement a pour objectif d'analyser les différentes distances des étapes pour chaque trajet. Il récupère les distances minimales, maximales et moyennes des étapes pour chaque trajet. Le résultat est représenté sous forme d'un graphique de type courbes min-max-moyenne.
 Ce graphique affiche pour chaque identifiant de trajet les valeurs minimales, moyennes et maximales des distances en kilomètres. Il présente deux courbes pour les valeurs minimales et maximales de distance, avec une troisième courbe au milieu représentant la moyenne de ces distances.
 Les données sont triées en fonction de la différence entre la distance maximale et la distance minimale par ordre décroissant, et seules les 50 premières valeurs sont conservées dans le graphique.
-
-### Exécution du script :
-
-Pour exécuter le script, ouvrez un terminal et exécutez la commande suivante :
-
-```bash
-./main.sh [-h] fichier_csv [options]
-```
-
-**Exemples:**
-```bash
-./main.sh -h # Montre l'aide
-./main.sh ./data/data.csv -d1 -d2 # Execute les traitements d1 et d2
-```
-
 
 ## Planning
 
