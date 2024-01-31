@@ -86,8 +86,13 @@ while [ "$#" -gt 1 ]; do
             duree=$((fin - debut))
             ## On affiche le résultat            
             echo "Temps d'éxecution: $(tput bold)$duree $(tput sgr0)secondes"
-            ## Ouverture du graphique 
-            open ./images/graph_d1.png
+            ## Ouverture du graphique
+            if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+                xdg-open ./images/graph_d1.png
+            fi
+            if [[ "$OSTYPE" == "darwin"* ]]; then
+                open ./images/graph_d1.png
+            fi
             ;;
 
         "-d2")
@@ -109,7 +114,12 @@ while [ "$#" -gt 1 ]; do
             ## On affiche le résultat
             echo "Temps d'éxecution: $(tput bold)$duree $(tput sgr0)secondes"
             ## Ouverture du graphique
-            open ./images/graph_d2.png
+            if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+                xdg-open ./images/graph_d2.png
+            fi
+            if [[ "$OSTYPE" == "darwin"* ]]; then
+                open ./images/graph_d2.png
+            fi
             ;;
 
         "-l")
@@ -130,7 +140,12 @@ while [ "$#" -gt 1 ]; do
             ## On affiche le résultat
             echo "Temps d'éxecution: $(tput bold)$duree $(tput sgr0)secondes"
             ## Ouverture du graphique
-            open ./images/graph_l.png
+            if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+                xdg-open ./images/graph_l.png
+            fi
+            if [[ "$OSTYPE" == "darwin"* ]]; then
+                open ./images/graph_l.png
+            fi
             ;;
 
         "-t")
@@ -152,6 +167,12 @@ while [ "$#" -gt 1 ]; do
             echo "Création du graphique en cours ..."
             gnuplot gnuplot-script/s.gnu
             echo "Création du graphique terminé"
+            if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+                xdg-open ./images/graph_S.png
+            fi
+            if [[ "$OSTYPE" == "darwin"* ]]; then
+                open ./images/graph_S.png
+            fi
             ;;
         *)
             echo "Option non reconnue ou manquante: $2. Utilisez -d1, -d2 -l, -t ou -s pour effectuer les traitements spécifiques. Utilisez -h pour l'aide."
