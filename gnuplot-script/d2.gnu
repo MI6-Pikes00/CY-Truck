@@ -22,7 +22,7 @@ set grid y2
 # Style des données en histogrammes
 set style data histograms
 set style fill solid border -1
-set boxwidth 0.5
+set boxwidth 1
 set tmargin 2.5
 
 # Tracé du graphique
