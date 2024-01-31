@@ -6,8 +6,9 @@ Ce script shell a été conçu pour effectuer des traitements spécifiques sur d
 
 ### Prérequis :
 
-Assurez-vous que votre environnement exécute Bash et dispose des outils nécessaires tels que `awk`, `gnuplot` pour la génération des graphiques.
+Assurez-vous que votre environnement exécute Bash et dispose des outils nécessaires tels que `awk`, `gcc` pour compiler, `gnuplot` pour la génération des graphiques.
 
+- Pour gcc: https://dev.to/gamegods3/how-to-install-gcc-in-windows-10-the-easier-way-422j 
 - Pour gnuplot: https://doc.ubuntu-fr.org/gnuplot
 - Pour awk: présente par defaut sous Unix
 
