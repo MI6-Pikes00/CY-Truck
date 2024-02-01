@@ -151,6 +151,7 @@ while [ "$#" -gt 1 ]; do
         "-t")
             echo "En cours de dévellopement"
             ;;
+            
         "-s")
             echo "Traitement des statistiques sur les étapes en cours..."
             ## On récupère le timestamp actuel au lancement du script
