@@ -45,11 +45,6 @@ fi
 # Récupération du fichier à analyser
 fichier_csv="$1"
 
-## Vérification de l'existance du fichier
-            if [ ! -f "$fichier_csv" ]; then
-                echo "Le fichier $fichier_csv n'existe pas."
-                exit 1
-            fi
 
 # Vérification de l'option d'aide
 if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
@@ -64,6 +59,12 @@ if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
     exit 0
 
 fi
+
+## Vérification de l'existance du fichier
+            if [ ! -f "$fichier_csv" ]; then
+                echo "Le fichier $fichier_csv n'existe pas."
+                exit 1
+            fi
 
 # Parcourir tous les arguments restants
 while [ "$#" -gt 1 ]; do
@@ -149,7 +150,27 @@ while [ "$#" -gt 1 ]; do
             ;;
 
         "-t")
-            echo "En cours de dévellopement"
+            echo "Traitement des 10 villes les plus traversées en cours..."
+            ## On récupère le timestamp actuel au lancement du script
+            debut=$(date +%s)
+            ## Tri des données de fichier_csv avec un programme C
+            ./option "$fichier_csv" 1
+            ## On récupère le timestamp actuel à la fin du script
+            fin=$(date +%s)
+            echo "Traitement des 10 villes les plus traversées terminé. Résultats stockés dans ./temp/tempS.csv"
+            ## On calcule la durée d'exécution
+            duree=$((fin - debut))
+            ## On affiche le résultat
+            echo "Temps d'éxecution: $(tput bold)$duree $(tput sgr0)secondes"
+            echo "Création du graphique en cours ..."
+            gnuplot gnuplot-script/t.gnu
+            echo "Création du graphique terminé"
+            if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+                xdg-open ./images/graph_T.png
+            fi
+            if [[ "$OSTYPE" == "darwin"* ]]; then
+                open ./images/graph_T.png
+            fi
             ;;
             
         "-s")

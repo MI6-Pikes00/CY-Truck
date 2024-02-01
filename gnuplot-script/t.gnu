@@ -27,6 +27,6 @@ set boxwidth 2 relative
 set key autotitle columnheader
 
 # Traçage des barres verticales pour le nombre total de trajets et les départs par ville
-plot 'adefinir' using 2:xticlabels(1) with histogram title "Total trajets" lc rgb "blue", \
+plot './temp/tempT.csv' using 2:xticlabels(1) with histogram title "Total trajets" lc rgb "blue", \
      '' using 3 with histogram title "Ville de départ" lc rgb "skyblue"
 

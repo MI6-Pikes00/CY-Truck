@@ -1,3 +1,4 @@
+#include "traitement-t.h"
 #include "traitement-s.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,7 +34,47 @@ int main( int argc, char * argv[] ) {
     switch( value ) {
         case 1: // option -t
 
-            printf("A completer");
+            // Lecture du fichier CSV
+            while (fgets(ligneT, sizeof(ligneT), fichierSource))
+            {
+                if (strstr(ligneT, "Route ID") != NULL)
+                {
+                    continue;
+                }
+
+                donneeT = strtok(ligneT, ";");
+                char *etapeId = strtok(NULL, ";");
+                donneeT = strtok(NULL, ";");
+                if (strcmp(etapeId, "1") == 0)
+                {
+                    racineT = insererNoeudT(racineT, donneeT, etapeId);
+                }
+                strcpy(etapeId, "0");
+                donneeT = strtok(NULL, ";");
+                racineT = insererNoeudT(racineT, donneeT, etapeId);
+            }
+
+            struct Top10 top10 = {.index = 0};
+
+            parcoursInfixeT(racineT, &top10);
+
+            trierTop10T(&top10);
+
+            FILE *outputT = fopen("./temp/tempT.csv", "w");
+            if (outputT == NULL)
+            {
+                perror("Erreur lors de la création du fichier de sortie");
+                return 1;
+            }
+            fprintf(outputT, "nomVille;compteTotal;compteDepart\n");
+            for (int i = 0; i < top10.index; i++)
+            {
+                fprintf(outputT, "%s;%d;%d\n", top10.nodes[i]->nomVille, top10.nodes[i]->compteTotal, top10.nodes[i]->compteDepart);
+            }
+
+            fclose(outputT);
+
+            libererArbreVillesT(racineT);
 
             break;
         case 2: // option -s
