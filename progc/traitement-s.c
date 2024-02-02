@@ -4,15 +4,16 @@
 #include <string.h>
 
 // Fonction pour créer un nouveau noeud dans l'arbre AVL
-struct Trajet *nouveauNoeudS(int routeId, float distance)
-{
+struct Trajet *nouveauNoeudS(int routeId, float distance){
+    
     struct Trajet *noeud = (struct Trajet *)malloc(sizeof(struct Trajet));
-    if (noeud == NULL)
-    {
+    
+    if (noeud == NULL){
         fprintf(stderr, "Erreur lors de l'allocation de mémoire pour le nouveau nœud.\n");
         exit(EXIT_FAILURE);
     }
 
+    // Attribution des données dans le noeud de l'AVL 
     noeud->routeId = routeId;
     noeud->distance_min = distance;
     noeud->distance_max = distance;
@@ -28,38 +29,32 @@ struct Trajet *nouveauNoeudS(int routeId, float distance)
 }
 
 // Fonction pour obtenir la hauteur d'un nœud dans l'arbre AVL
-int obtenirHauteurS(struct Trajet *noeud)
-{
-    if (noeud == NULL)
-    {
+int obtenirHauteurS(struct Trajet *noeud){
+    if (noeud == NULL){
         return 0;
     }
     return noeud->height;
 }
 
 // Fonction pour obtenir le facteur d'équilibre d'un nœud dans l'arbre AVL
-int obtenirBalanceS(struct Trajet *noeud)
-{
-    if (noeud == NULL)
-    {
+int obtenirBalanceS(struct Trajet *noeud){
+    if (noeud == NULL){
         return 0;
     }
     return obtenirHauteurS(noeud->gauche) - obtenirHauteurS(noeud->droit);
 }
 
-float maxS(float a, float b)
-{
+float maxS(float a, float b){
     return (a >= b) ? a : b;
 }
 
-float minS(float a, float b)
-{
+float minS(float a, float b){
     return (a >= b ? b : a);
 }
 
 // Fonction pour effectuer une rotation gauche dans l'arbre AVL
-struct Trajet *rotationGaucheS(struct Trajet *noeud)
-{
+struct Trajet *rotationGaucheS(struct Trajet *noeud){
+
     struct Trajet *nouvelleRacine = noeud->droit;
     struct Trajet *sousArbre = nouvelleRacine->gauche;
 
@@ -75,8 +70,8 @@ struct Trajet *rotationGaucheS(struct Trajet *noeud)
 }
 
 // Fonction pour effectuer une rotation droite dans l'arbre AVL
-struct Trajet *rotationDroitS(struct Trajet *noeud)
-{
+struct Trajet *rotationDroitS(struct Trajet *noeud){
+
     struct Trajet *nouvelleRacine = noeud->gauche;
     struct Trajet *sousArbre = nouvelleRacine->droit;
 
@@ -92,16 +87,15 @@ struct Trajet *rotationDroitS(struct Trajet *noeud)
 }
 
 // Fonction pour insérer un nouveau nœud et rééquilibrer l'arbre AVL
-struct Trajet *insererNoeudS(struct Trajet *noeud, int routeId, float distance)
-{
+struct Trajet *insererNoeudS(struct Trajet *noeud, int routeId, float distance){
+
     // Si l'arbre est vide, créez un nouveau nœud
-    if (noeud == NULL)
-    {
+    if (noeud == NULL){
         return nouveauNoeudS(routeId, distance);
     }
+    
     // Si le trajet est déjà présent, mettre à jour les compteurs appropriés
-    if (noeud->routeId == routeId)
-    {
+    if (noeud->routeId == routeId){
         noeud->distance_min = minS(noeud->distance_min, distance);
         noeud->distance_max = maxS(noeud->distance_max, distance);
         noeud->distance_total = (noeud->distance_total + distance);
@@ -111,14 +105,13 @@ struct Trajet *insererNoeudS(struct Trajet *noeud, int routeId, float distance)
     }
 
     // Insertion récursive dans l'arbre
-    if (routeId < noeud->routeId)
-    {
+    if (routeId < noeud->routeId){
         noeud->gauche = insererNoeudS(noeud->gauche, routeId, distance);
-    }
-    else
-    {
+    } else{
         noeud->droit = insererNoeudS(noeud->droit, routeId, distance);
     }
+
+    /* --------- Rééquilibre de l'AVL --------- */
 
     // Mettre à jour la hauteur du nœud actuel
     noeud->height = 1 + maxS(obtenirHauteurS(noeud->gauche), obtenirHauteurS(noeud->droit));
@@ -127,27 +120,23 @@ struct Trajet *insererNoeudS(struct Trajet *noeud, int routeId, float distance)
     int balance = obtenirBalanceS(noeud);
 
     // Cas de déséquilibre - rotation gauche-gauche
-    if (balance > 1 && (routeId < noeud->gauche->routeId))
-    {
+    if (balance > 1 && (routeId < noeud->gauche->routeId)){
         return rotationDroitS(noeud);
     }
 
     // Cas de déséquilibre - rotation droite-droite
-    if (balance < -1 && (routeId > noeud->droit->routeId))
-    {
+    if (balance < -1 && (routeId > noeud->droit->routeId)){
         return rotationGaucheS(noeud);
     }
 
     // Cas de déséquilibre - rotation gauche-droite
-    if (balance > 1 && (routeId > noeud->gauche->routeId))
-    {
+    if (balance > 1 && (routeId > noeud->gauche->routeId)){
         noeud->gauche = rotationGaucheS(noeud->gauche);
         return rotationDroitS(noeud);
     }
 
     // Cas de déséquilibre - rotation droite-gauche
-    if (balance < -1 && (routeId < noeud->droit->routeId))
-    {
+    if (balance < -1 && (routeId < noeud->droit->routeId)){
         noeud->droit = rotationDroitS(noeud->droit);
         return rotationGaucheS(noeud);
     }
@@ -156,10 +145,9 @@ struct Trajet *insererNoeudS(struct Trajet *noeud, int routeId, float distance)
 }
 
 // Fonction pour libérer la mémoire d'un arbre binaire de trajets
-void libererArbreTrajetS(struct Trajet *racine)
-{
-    if (racine == NULL)
-    {
+void libererArbreTrajetS(struct Trajet *racine){
+
+    if (racine == NULL){
         return;
     }
 
@@ -172,61 +160,50 @@ void libererArbreTrajetS(struct Trajet *racine)
 }
 
 // Fonction pour ajouter un noeud dans les 10 plus grands totaux
-void ajoutTop50S(struct Top50 *top50, struct Trajet *noeud)
-{
-    if (top50->index < 50)
-    {
+void ajoutTop50S(struct Top50 *top50, struct Trajet *noeud){
+
+    if (top50->index < 50){
         top50->nodes[top50->index++] = noeud;
-    }
-    else
-    {
+    } else{
         int minIndex = 0;
-        for (int i = 1; i < 50; i++)
-        {
-            if (top50->nodes[i]->d_max_d_min < top50->nodes[minIndex]->d_max_d_min)
-            {
+        for (int i = 1; i < 50; i++){
+            if (top50->nodes[i]->d_max_d_min < top50->nodes[minIndex]->d_max_d_min){
                 minIndex = i;
             }
         }
-        if (noeud->d_max_d_min > top50->nodes[minIndex]->d_max_d_min)
-        {
+        if (noeud->d_max_d_min > top50->nodes[minIndex]->d_max_d_min){
             top50->nodes[minIndex] = noeud;
         }
     }
 }
 
 // Fonction de comparaison pour qsort()
-int compareS(const void *a, const void *b)
-{
+int compareS(const void *a, const void *b){
+
     struct Trajet *stepA = *(struct Trajet **)a;
     struct Trajet *stepB = *(struct Trajet **)b;
 
     // Tri par ordre décroissant de d_max_d_min
-    if (stepA->d_max_d_min < stepB->d_max_d_min)
-    {
+    if (stepA->d_max_d_min < stepB->d_max_d_min){
         return 1;
     }
-    else if (stepA->d_max_d_min > stepB->d_max_d_min)
-    {
+    else if (stepA->d_max_d_min > stepB->d_max_d_min){
         return -1;
     }
-    else
-    {
+    else{
         return 0;
     }
 }
 
 // Fonction de tri pour la structure Top50
-void triTop50S(struct Top50 *top50)
-{
+void triTop50S(struct Top50 *top50){
     qsort(top50->nodes, top50->index, sizeof(struct Trajet *), compareS);
 }
 
 // Écriture dans le fichier de sortie
-void parcoursInfixeS(struct Trajet *racine, struct Top50 *top50)
-{
-    if (racine != NULL)
-    {
+void parcoursInfixeS(struct Trajet *racine, struct Top50 *top50){
+    
+    if (racine != NULL){
         racine->distance_moyenne = racine->distance_total / racine->nb_etape;
         parcoursInfixeS(racine->gauche, top50);
 

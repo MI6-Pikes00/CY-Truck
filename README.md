@@ -49,3 +49,10 @@ Pour exécuter le script, ouvrez un terminal et assurez-vous que votre fichier �
 
 #### [S] : Statistiques sur les Étapes
 - Option : `-s`
+
+### <ins> Sources </ins>
+- [Ubuntu (Shell)](https://doc.ubuntu-fr.org/tutoriel/script_shell)
+- [Gnuplot Src (Gnuplot)](https://gnuplot.sourceforge.net/)
+- [StackOverflow (Gnuplot)](https://stackoverflow.com/questions/11266452/horizontal-histogram-in-gnuplot)
+- [Funix (AWK)](funix.org/fr/unix/awk.htm)
+- [Wikipedia EN (AWK)](https://en.wikipedia.org/wiki/AWK)
